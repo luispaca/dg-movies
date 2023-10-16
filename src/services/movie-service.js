@@ -3,7 +3,9 @@ const Sequelize = require("sequelize");
 
 module.exports = {
     getAllMovies: () => {
-        return Movies.findAll();
+        return Movies.findAll({
+            include: [{association: "generos"}]
+        });
     },
     getNewestMovies: () => {
         return Movies.findAll({
