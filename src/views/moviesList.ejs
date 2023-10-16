@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Películas</title>
     <link rel='stylesheet' href='/css/style.css' />
+    <link rel="icon" type="image/webp" href="img/dh.webp" sizes="16x16"/>
 </head>
 <body>
     <figure>
@@ -17,7 +18,13 @@
                 <% if (movies[i].generos) { %>
                     <a href="/movies/detail/<%= movies[i].id %>"><%= movies[i].title %> - <%= movies[i].generos.name %></a>
                 <% } %>
-                
+                <ul>
+                    <% for( let j = 0; j < movies[i].actores.length; j++ ) { %>
+                        <li>
+                            <%= movies[i].actores[j].firstName %> <%= movies[i].actores[j].lastName %>
+                        </li>
+                    <% } %>
+                </ul>
             </li>
         <% } %>
     </ul>

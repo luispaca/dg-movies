@@ -18,5 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: "updated_at",
       }
     );
+    Model.associate = function (modelos) {
+      Model.belongsToMany(modelos.Movies,{
+        as: "movies",
+        through: "actor_movie",
+        foreignKey: "actor_id",
+        otherKey: "movie_id",
+        timestamps: false
+      })
+    }
     return Model;
   };
