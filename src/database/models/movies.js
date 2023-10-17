@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
   );
   Model.associate = function (modelos) {
     Model.belongsTo(modelos.Genres,{
-      as: "generos",
+      as: "genre",
       foreignKey: "genre_id"
     });
     Model.belongsToMany(modelos.Actors,{
-      as: "actores",
+      as: "actors",
       through: "actor_movie",
       foreignKey: "movie_id",
       otherKey: "actor_id",

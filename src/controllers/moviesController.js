@@ -1,4 +1,6 @@
 const movieService = require("../services/movie-service");
+const genreService = require("../services/genres-service");
+const daysjs = require("dayjs");
 
 module.exports = {
     list: (req,res) => {
@@ -22,7 +24,10 @@ module.exports = {
         });
     },
     add: (req,res) => {
-        res.render("moviesAdd");
+        const genres = genreService.getAllGenres();
+        genres.then((genres) => {
+          res.render("moviesAdd",{ genres });  
+        });
     },
     create: (req,res) => {
         const movie = {
@@ -37,8 +42,10 @@ module.exports = {
     },
     edit: (req,res) => {
         const id = req.params.id;
-        movieService.getMovieById(id).then((movie) => {
-            res.render("moviesEdit", { movie });
+        const genres = genreService.getAllGenres();
+        const movie = movieService.getMoviesDetail(id);
+        Promise.all([genres,movie]).then(([genres,movie]) => {
+            res.render("moviesEdit", { movie,genres });
         });
     },
     update: (req,res) => {
@@ -48,6 +55,7 @@ module.exports = {
             awards: req.body.awards,
             release_date: req.body.release_date,
             length: req.body.length,
+            genre_id: req.body.genre_id
         };
         const id = {
             where : {
