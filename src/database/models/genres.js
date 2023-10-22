@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: "updated_at",
       }
     );
-    Model.associate = function (modelos) {
-      Model.hasMany(modelos.Movies,{
+    Model.associate = function (db) {
+      Model.hasMany(db.Movies,{
         as: "movies",
         foreignKey: "genre_id"
       });

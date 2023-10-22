@@ -14,17 +14,21 @@ module.exports = (sequelize, DataTypes) => {
       updatedAt: "updated_at",
     }
   );
-  Model.associate = function (modelos) {
-    Model.belongsTo(modelos.Genres,{
+  Model.associate = function (db) {
+    Model.belongsTo(db.Genres,{
       as: "genre",
       foreignKey: "genre_id"
     });
-    Model.belongsToMany(modelos.Actors,{
+    Model.belongsToMany(db.Actors,{
       as: "actors",
       through: "actor_movie",
       foreignKey: "movie_id",
       otherKey: "actor_id",
       timestamps: false
+    });
+    Model.hasOne(db.Actors,{
+      as: "favorite_movie",
+      foreignKey: "favorite_movie_id"
     });
   }
   return Model;

@@ -61,23 +61,20 @@ module.exports = {
             where : {
                 id: req.params.id,
             }
-        }
+        };
         movieService.getUpdateMovie(movie,id);
         res.redirect("/movies");
     },
     delete: (req,res) => {
         const id = req.params.id;
-        movieService.getMovieById(id).then((movie) => {
+        movieService.getMoviesDetail(id).then((movie) => {
             res.render("moviesDelete", { movie });
         });
     },
     destroy: (req,res) => {
-        const action = {
-            where : {
-                id: req.params.id,
-            }
-        };
-        movieService.getDestroyMovie(action);
-        res.redirect("/movies");
+        const id = req.params.id;
+        movieService.getDestroyMovie(id).then(() => {
+            res.redirect("/movies");
+        });
     }
 };
