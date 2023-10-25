@@ -1,6 +1,5 @@
 const movieService = require("../services/movie-service");
 const genreService = require("../services/genres-service");
-const daysjs = require("dayjs");
 
 module.exports = {
     list: (req,res) => {

@@ -14,6 +14,7 @@ app.set("views",path.resolve(__dirname,"./views"));
 
 app.use(express.static(path.resolve(__dirname,"../public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
 
 app.use("/",indexRouter);
 app.use(moviesRoutes);
