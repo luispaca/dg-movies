@@ -2,7 +2,7 @@ const actorService = require("../../services/actors-service");
 
 module.exports = {
     list: (req,res) => {
-        actorService.getAllActors()
+        actorService.create(req.body);
     },
     destroy: (req,res) => {
 

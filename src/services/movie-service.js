@@ -77,5 +77,16 @@ module.exports = {
             }
           });  
         });
+    },
+    search: async (query) => {
+        const movie = await Movies.findOne({
+            where: {
+                title: {
+                    [Sequelize.Op.like]: "%" + query + "%",
+                }
+            },
+            include: ["genre", "actors"]
+        });
+        return movie;
     }
 };

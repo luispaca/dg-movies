@@ -1,5 +1,6 @@
 const movieService = require("../services/movie-service");
 const genreService = require("../services/genres-service");
+const omdbAPIService = require("../services/omdbAPI");
 
 module.exports = {
     list: (req,res) => {
@@ -75,5 +76,22 @@ module.exports = {
         movieService.getDestroyMovie(id).then(() => {
             res.redirect("/movies");
         });
+    },
+    search: async (req,res) => {
+        //1. Buscar la película en nuestra base de datos
+        //1b. si está, mostramos el detalle de la película
+        //2. Buscar la película en la API de OMDB
+        //2b. Si está,  mostramos el detalle de la película con los datos de OMDB
+        //3. Mostramos mensaje de error 404 not found
+        const query = req.query.search;
+        const movieInOurDB = await movieService.search(query);
+        if(movieInOurDB){
+            return res.render("moviesDetail", { movie: movieInOurDB })
+        }
+        const movieInAPI = await omdbAPIService.search(query);
+        if(movieInAPI){
+            return res.render("moviesOMDBDetail", { movie:movieInAPI })
+        }
+        res.send("404");
     }
 };
